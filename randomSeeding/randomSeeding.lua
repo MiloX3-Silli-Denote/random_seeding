@@ -43,6 +43,13 @@ function RandomSeeding:getRandomFromSubSeed(name, ...)
   return self.subSeeds[name].generator:random(...);
 end
 
+function RandomSeeding:getRandomNormalFromSubSeed(name, ...)
+  assert(self.subSeeds[name], "tried to generate random normal number from a sub seed that does not exist: " .. name);
+  assert(self.subSeeds[name].active == false, "tried to generate random normal number from a sub seed that is currently active: " .. name);
+
+  return self.subSeeds[name].generator:randomNormal(...);
+end
+
 function RandomSeeding:activateSubSeed(name)
   assert(self.subSeeds[name], "tried to activate a sub seed that does not exist: " .. name);
   assert(self.subSeeds[name].active == false, "tried to activate a sub seed that is already active: " .. name);
